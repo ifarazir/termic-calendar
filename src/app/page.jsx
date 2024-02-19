@@ -479,13 +479,15 @@ export default function Home() {
         <div className="rounded w-full">
           <div className="grid grid-cols-8 font-bold border-b pb-3">
             <div></div>
-            <p>شنبه</p>
-            <p>یکشنبه</p>
-            <p>دوشنبه</p>
-            <p>سه شنبه</p>
-            <p>چهارشنبه</p>
-            <p>پنجشنبه</p>
-            <p>جمعه</p>
+            {
+              days.map((day, i) => {
+                return (
+                  <p key={i}>
+                    {day}
+                  </p>
+                );
+              })
+            }
           </div>
           <div className="grid grid-cols-8 h-[calc(70dvh)]">
             <div className="relative h-full">
@@ -546,11 +548,11 @@ export default function Home() {
                                 margin: "auto",
                               }}
                             >
-                              <p className="text-sm font-bold">{toPersianNumber(course.title)}</p>
+                              <p className="text-sm font-bold line-clamp-1">{toPersianNumber(course.title)}</p>
                               <p className="text-sm text-end" dir="ltr">
                                 {toPersianNumber(period.start) + ' - ' + toPersianNumber(period.end)}
                               </p>
-                              <p className="font-normal text-xs">{course.teacher}</p>
+                              <p className="font-normal text-xs line-clamp-1">{course.teacher}</p>
                             </div>
                           );
                         });
@@ -574,11 +576,11 @@ export default function Home() {
                               }}
                             >
                               <p className="absolute top-3 left-3 font-bold text-2xl opacity-5">TA</p>
-                              <p className="text-sm font-bold">{toPersianNumber(course.title)}</p>
+                              <p className="text-sm font-bold line-clamp-1">{toPersianNumber(course.title)}</p>
                               <p className="text-sm text-end" dir="ltr">
                                 {toPersianNumber(period.start) + ' - ' + toPersianNumber(period.end)}
                               </p>
-                              <p className="font-normal text-xs">{course.asistant}</p>
+                              <p className="font-normal text-xs line-clamp-1">{course.asistant}</p>
                             </div>
                           );
                         });
