@@ -20,7 +20,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["IRANSansX", ...fontFamily.sans],
+        sans: ['var(--font-vazir)'],
       },
       colors: {
         border: "hsl(var(--border))",

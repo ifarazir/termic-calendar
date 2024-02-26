@@ -1,11 +1,13 @@
 import "./globals.css";
-import { Vazirmatn as FontSans } from "next/font/google"
+import { Vazirmatn } from "next/font/google"
 import { cn } from "@/lib/utils";
 import { Metadata, Viewport } from "next";
 
-export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
+export const fontSans = Vazirmatn({
+  subsets: [
+
+  ],
+  variable: "--font-vazir",
 });
 
 export default function RootLayout({ children }) {
