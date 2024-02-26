@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Nav from "./nav";
 import { cn, toPersianNumber } from "@/lib/utils";
 import dayjs from "dayjs";
-import { GraduationCap, Presentation } from "lucide-react";
+import { GraduationCap, PencilIcon, Presentation, TrashIcon, XIcon } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 var weekday = require('dayjs/plugin/weekday')
 
 // get all tailwind colors from tailwindcss.com with their name and shade 100 and 500 color code
@@ -346,6 +347,7 @@ export default function Home() {
 
   const [courses, setCourses] = useState([]);
   const [isThereConflict, setIsThereConflict] = useState(false);
+  const [oppenedCourse, setOppenedCourse] = useState(null);
 
   useEffect(() => {
     const course1 = new Course(
@@ -535,8 +537,14 @@ export default function Home() {
                       courses.map((course, j) => {
                         return course.periods.filter(period => period.days.includes(i)).map((period, k) => {
                           return (
-                            <div
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.5 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.3 }}
+
                               key={k}
+                              layoutId={course.id}
+                              onClick={() => setOppenedCourse(course.id)}
                               className={`absolute w-full rounded-lg p-2 border-y border-y-white border-l-4 border-l-white border-r-4`}
                               style={{
                                 top: `calc(${period.top}vh + 5vh)`,
@@ -553,7 +561,7 @@ export default function Home() {
                                 {toPersianNumber(period.start) + ' - ' + toPersianNumber(period.end)}
                               </p>
                               <p className="font-normal text-xs line-clamp-1">{course.teacher}</p>
-                            </div>
+                            </motion.div>
                           );
                         });
                       })
@@ -562,8 +570,13 @@ export default function Home() {
                       courses.map((course, j) => {
                         return course.asistantPeriods.filter(period => period.days.includes(i)).map((period, k) => {
                           return (
-                            <div
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.5 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.3 }}
+
                               key={k}
+                              onClick={() => setOppenedCourse(course.id)}
                               className={`absolute w-full rounded-lg p-2 border-y border-y-white border-l-4 border-l-white border-r-4`}
                               style={{
                                 top: `calc(${period.top}vh + 5vh)`,
@@ -575,13 +588,13 @@ export default function Home() {
                                 margin: "auto",
                               }}
                             >
-                              <p className="absolute top-3 left-3 font-bold text-2xl opacity-5">TA</p>
-                              <p className="text-sm font-bold line-clamp-1">{toPersianNumber(course.title)}</p>
-                              <p className="text-sm text-end" dir="ltr">
+                              <motion.p className="absolute top-3 left-3 font-bold text-2xl opacity-5">TA</motion.p>
+                              <motion.p className="text-sm font-bold line-clamp-1">{toPersianNumber(course.title)}</motion.p>
+                              <motion.p className="text-sm text-end" dir="ltr">
                                 {toPersianNumber(period.start) + ' - ' + toPersianNumber(period.end)}
-                              </p>
-                              <p className="font-normal text-xs line-clamp-1">{course.asistant}</p>
-                            </div>
+                              </motion.p>
+                              <motion.p className="font-normal text-xs line-clamp-1">{course.asistant}</motion.p>
+                            </motion.div>
                           );
                         });
                       })
@@ -674,6 +687,78 @@ export default function Home() {
           })
         }
       </section>
+
+      {oppenedCourse && (
+        <>
+          <motion.div
+            initial={{ opacity: 0, }}
+            animate={{ opacity: 1, }}
+
+            transition={{ duration: 0.5 }}
+            className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-20 backdrop-blur-sm z-20" onClick={() => setOppenedCourse(null)}>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, }}
+            animate={{ opacity: 1, }}
+            transition={{ duration: 0.2 }}
+            className={"fixed z-30 top-1/2 right-1/2 !translate-x-1/2 !-translate-y-1/2 bg-white max-w-sm w-full border px-4 py-6 rounded-lg border-r-4"}
+            style={{
+              borderRightColor: courses.find(c => c.id === oppenedCourse).color[500],
+              color: courses.find(c => c.id === oppenedCourse).color[950],
+            }}
+          >
+            <div className="absolute left-3 top-3 flex gap-2">
+              <button className="w-6 h-6 bg-yellow-500/10 rounded-full flex items-center justify-center"
+                onClick={() => setOppenedCourse(null)}
+              >
+                <PencilIcon className="w-4 h-4 text-yellow-500" />
+              </button>
+              <button className="w-6 h-6 bg-red-500/10 rounded-full flex items-center justify-center"
+                onClick={() => setOppenedCourse(null)}
+              >
+                <TrashIcon className="w-4 h-4 text-red-500" />
+              </button>
+              <button className="w-6 h-6 bg-black/10 rounded-full flex items-center justify-center"
+                onClick={() => setOppenedCourse(null)}
+              >
+                <XIcon className="w-4 h-4 text-black" />
+              </button>
+            </div>
+            <div className="flex flex-col items-start mb-3">
+              <motion.p className="text-xs font-bold mb-1">عنوان درس:</motion.p>
+              <motion.p>{toPersianNumber(courses.find(c => c.id === oppenedCourse).title)}</motion.p>
+            </div>
+            <div className="flex flex-col items-start mb-3">
+              <motion.p className="text-xs font-bold mb-1">مدرس:</motion.p>
+              <motion.p>{courses.find(c => c.id === oppenedCourse).teacher}</motion.p>
+            </div>
+            <div className="flex flex-col items-start mb-3">
+              <motion.p className="text-xs font-bold mb-1">زمان برگزاری:</motion.p>
+              {
+                console.log(courses.find(c => c.id === oppenedCourse))
+              }
+              {
+                courses.find(c => c.id === oppenedCourse).periods.map((period, i) => {
+                  {
+                    return period.days.map((day, j) => (
+                      <div key={j} className={cn("w-full flex items-center justify-between py-1",
+                        j !== 0 && "border-t"
+                      )}>
+                        <motion.p className="text-sm text-start">
+                          {days[day]}
+                        </motion.p>
+                        <motion.p className="text-sm text-end" dir="ltr">
+                          {toPersianNumber(period.start) + ' - ' + toPersianNumber(period.end)}
+                        </motion.p>
+                      </div>
+                    ))
+                  }
+                })
+              }
+            </div>
+          </motion.div>
+        </>
+      )}
 
     </div>
   );

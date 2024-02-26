@@ -1,4 +1,5 @@
 import AddCourseDrawer from "@/components/add-course";
+import { Logo } from "@/components/karensa-logo";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -9,14 +10,20 @@ const Nav = () => {
     const isDesktop = useMediaQuery("(min-width: 768px)")
 
     return (
-        <header className="print:hidden sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="print:hidden sticky top-0 z-10 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
                 <Link
-                    href="/"
+                    href="https://karensastudio.com/"
+                    target="_blank"
                     className="flex items-center gap-x-2"
                 >
-                    <CalendarFold className="w-6 h-6" strokeWidth={1.25} />
-                    <h1 className="text-base font-medium"><span className="font-black">ابزارک</span>/ تقویم ساز ترم</h1>
+                    <Logo className="h-5" fillOnHover />
+                </Link>
+                <Link
+                    href="/"
+                    className="flex items-center gap-x-2 ml-auto mr-2"
+                >
+                    <h1 className="text-base font-medium border-r border-r-neutral-800 pr-2">تقویم ساز ترم</h1>
                 </Link>
 
                 <div>
@@ -59,7 +66,7 @@ const Nav = () => {
                         ) : (
                             <AddCourseDrawer>
                                 <Button>
-                                        افزودن درس
+                                    افزودن درس
                                 </Button>
                             </AddCourseDrawer>
                         )
