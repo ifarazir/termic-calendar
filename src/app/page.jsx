@@ -341,6 +341,16 @@ const days = [
   "جمعه",
 ];
 
+const daysEN = [
+  "Saturday",
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+];
+
 dayjs.extend(weekday)
 
 export default function Home() {
@@ -613,7 +623,7 @@ export default function Home() {
             return (
               <div key={i} className={"relative flex flex-col border-b border-neutral-100 py-5 gap-2 container"}>
                 {
-                  i == dayjs().weekday(-7).day() &&
+                  i == daysEN.findIndex(d => d === dayjs().format('dddd')) &&
                   <div className="block absolute left-5 top-3 opacity-10">
                     <p className="text-4xl font-black">امروز</p>
                   </div>
