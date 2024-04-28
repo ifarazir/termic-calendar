@@ -378,7 +378,7 @@ export default function Home() {
       colors.red,
       "دکتر رجبی",
       [
-        new Period([2], "15:00", "17:00"),
+        new Period([2], "15:00", "17:00", "خیام ۰۱۰"),
       ],
       null,
       []
@@ -390,7 +390,7 @@ export default function Home() {
       colors.teal,
       "دکتر قاضی خانی",
       [
-        new Period([4], "10:00", "12:00"),
+        new Period([4], "10:00", "12:00", "خیام ۰۱۰"),
       ],
       null,
       []
@@ -402,7 +402,7 @@ export default function Home() {
       colors.orange,
       "دکتر موسوی قدمگاهی",
       [
-        new Period([2], "13:00", "15:00"),
+        new Period([2], "13:00", "15:00", "کلاس 02 خيام2"),
       ],
       null,
       []
@@ -426,7 +426,7 @@ export default function Home() {
       colors.yellow,
       "دکتر محدث خراسانی",
       [
-        new Period([1, 3], "13:30", "15:00"),
+        new Period([1, 3], "13:30", "15:00", "ریاضی ۲۰۶"),
       ],
       null,
       []
@@ -438,7 +438,7 @@ export default function Home() {
       colors.fuchsia,
       "دکتر سیروس",
       [
-        new Period([1, 3], "15:00", "16:30"),
+        new Period([1, 3], "15:00", "16:30", "صنایع ۱۰۶"),
       ],
       null,
       []
